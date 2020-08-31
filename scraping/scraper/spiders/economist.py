@@ -6,8 +6,7 @@ from scrapy.http.response import Response
 from bs4 import BeautifulSoup
 from xhtml2pdf import pisa
 
-ARTICLES_ROOT = pathlib.Path(
-    "/Users/johnwhelchel/Dropbox/laptop/Documents/21-30 Education/22 Library/22.19 The Economist")
+from config import ARTICLES_ROOT
 
 
 class Economist(scrapy.Spider):
