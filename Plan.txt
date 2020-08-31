@@ -1,0 +1,4 @@
+1) Setup script to download economist (using valid auth cookie)
+2) Setup cron job for it on Friday (johnwhelchel.com)
+3) Verify if any PDF post-processing is required
+4) Setup second part of script to upload to my Remarkable in a new folder
