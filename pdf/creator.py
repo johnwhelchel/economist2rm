@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 from config import ARTICLES_ROOT
 from pathlib import Path
@@ -9,9 +10,11 @@ class Creator:
     def __init__(self, latest_dir: Path):
         self._latest_dir: Path = latest_dir
 
-    def maybe_create(self):
+    def maybe_create(self) -> Optional[Path]:
         if not self._pdf_exists():
             self._create_pdf()
+            return self._pdf_path()
+        return None
 
     def _pdf_exists(self):
         return self._pdf_path().exists()
@@ -32,7 +35,7 @@ class Creator:
         return ARTICLES_ROOT / self._latest_dir / pdf
 
 
-def create_latest():
+def create_latest() -> Optional[Path]:
     latest_dir: Path = next(filter(lambda p: p.is_dir(),
                                    sorted(Path(ARTICLES_ROOT).iterdir(), key=os.path.getctime, reverse=True)))
-    Creator(latest_dir).maybe_create()
+    return Creator(latest_dir).maybe_create()

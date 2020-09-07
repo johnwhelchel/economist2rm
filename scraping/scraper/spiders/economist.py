@@ -1,3 +1,4 @@
+import logging
 import os
 import pathlib
 
@@ -22,6 +23,8 @@ class Economist(scrapy.Spider):
             folder_root = self._create_folder(title)
             yield from self._parse_world_this_week(response, folder_root)
             yield from self._parse_sections(response, folder_root)
+        else:
+            logging.info("Already scraped")
 
     def _create_folder(self, title: str):
         folder_root = ARTICLES_ROOT / title
