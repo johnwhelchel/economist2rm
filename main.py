@@ -1,5 +1,7 @@
 import logging
+import time
 
+from internet import is_connected
 from remarkable.uploader import Uploader
 from scraping.scraper.spiders.economist import Economist
 from pdf.creator import create_latest
@@ -15,6 +17,8 @@ def scrape():
     logging.info("Scraping...")
     os.environ["SCRAPY_PROJECT"] = str(Path(os.getcwd()) / "scraping")
     process = CrawlerProcess(get_project_settings())
+    breakpoint()
+    sys.exit()
     process.crawl(Economist)
     process.start()
     logging.info("Scraping complete")
@@ -28,6 +32,8 @@ def upload(file: Path):
 
 
 if __name__ == '__main__':
+    while not is_connected():
+        time.sleep(300)
     ch = logging.StreamHandler(sys.stdout)
     root = logging.getLogger()
     root.addHandler(ch)
